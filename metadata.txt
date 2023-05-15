@@ -1,2 +1,2 @@
-
 my_table  col1 INTEGER col2 STRING
+

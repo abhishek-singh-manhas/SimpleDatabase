@@ -65,7 +65,9 @@ public class Main  {
     public static void insertIntoTable(String[] tokens) {
         String tableName = tokens[2];
         StringBuilder values = new StringBuilder();
-        if(metadata.get(0).contains(tableName)){
+        boolean insert = false;
+        for(int j=0; j< metadata.size();j++){
+        if(metadata.get(j).contains(tableName)){
             for (int i = 4; i < tokens.length; i++) {
                 String value = tokens[i].replace(",", "");
                 values.append(value).append(" ");
@@ -74,14 +76,16 @@ public class Main  {
             try (PrintWriter writer = new PrintWriter(new FileWriter(tableName + ".txt", true))) {
                 writer.println(values);
                 System.out.println("Inserted into table: " + tableName);
+                insert = true;
+
             } catch (IOException e) {
                 System.out.println("An error occurred while inserting into the table.");
                 e.printStackTrace();
             }
+            break;
         }
-        else{
-            System.out.println(tableName+" is not created");
         }
+        if(!insert) System.out.println(tableName + " is not created");
     }
     public static ArrayList<ArrayList<String>> readFromFile() throws IOException {
         ArrayList< ArrayList<String>> all = new ArrayList<>();
